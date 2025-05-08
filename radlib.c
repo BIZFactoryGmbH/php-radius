@@ -1237,7 +1237,7 @@ int rad_salt_value(struct rad_handle *h, const char *in, size_t len, struct rad_
 	const char *in_pos;
 	MD5_CTX md5;
 	char *out_pos;
-	php_uint32 random;
+	uint32_t random;
 	size_t salted_len;
 	const char *secret;
 
