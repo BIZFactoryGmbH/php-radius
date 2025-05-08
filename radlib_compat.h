@@ -39,7 +39,7 @@ any other GPL-like (LGPL, GPL2) License.
 #endif
 
 #include "php.h"
-#include "ext/standard/php_rand.h"
+#include "ext/random/php_random.h"
 #include "ext/standard/php_standard.h"
 
 #define MPPE_KEY_LEN    16
