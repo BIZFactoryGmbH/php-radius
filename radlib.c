@@ -581,7 +581,7 @@ rad_create_request(struct rad_handle *h, int code)
 	/* Create a random authenticator */
 	for (i = 0;  i < LEN_AUTH;  i += 2) {
 		long r;
-		r = php_rand();
+		r = php_mt_rand();
 		h->request[POS_AUTH+i] = (unsigned char) r;
 		h->request[POS_AUTH+i+1] = (unsigned char) (r >> 8);
 	}
@@ -748,10 +748,10 @@ rad_auth_open(void)
 
 	h = (struct rad_handle *)malloc(sizeof(struct rad_handle));
 	if (h != NULL) {
-		php_srand(time(NULL) * getpid() * (unsigned long) (php_combined_lcg() * 10000.0));
+		php_mt_srand(time(NULL) * getpid() * (unsigned long) (php_combined_lcg() * 10000.0));
 		h->fd = -1;
 		h->num_servers = 0;
-		h->ident = php_rand();
+		h->ident = php_mt_rand();
 		h->errmsg[0] = '\0';
 		memset(h->request, 0, sizeof h->request);
 		h->req_len = 0;
@@ -1286,7 +1286,7 @@ int rad_salt_value(struct rad_handle *h, const char *in, size_t len, struct rad_
 	}
 
 	/* Generate a random number to use as the salt. */
-	random = php_rand();
+	random = php_mt_rand();
 
 	/* The RFC requires that the high bit of the salt be 1. Otherwise,
 	 * let's set up the header. */
