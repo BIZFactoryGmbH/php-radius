@@ -42,6 +42,7 @@ any other GPL-like (LGPL, GPL2) License.
 #include "php_radius.h"
 #include "radlib.h"
 #include "radlib_private.h"
+#include "radius_arginfo.h"
 
 #ifndef PHP_WIN32
 #include <sys/socket.h>
@@ -68,43 +69,6 @@ ZEND_DECLARE_MODULE_GLOBALS(radius)
 /* True global resources - no need for thread safety here */
 static int le_radius;
 
-/* {{{ radius_functions[]
- *
- * Every user visible function must have an entry in radius_functions[].
- */
-zend_function_entry radius_functions[] = {
-	PHP_FE(radius_auth_open,    NULL)
-	PHP_FE(radius_acct_open,    NULL)
-	PHP_FE(radius_close,        NULL)
-	PHP_FE(radius_strerror,     NULL)
-	PHP_FE(radius_config,       NULL)
-	PHP_FE(radius_add_server,	NULL)
-	PHP_FE(radius_create_request,	NULL)
-	PHP_FE(radius_put_string,	NULL)
-	PHP_FE(radius_put_int,	NULL)
-	PHP_FE(radius_put_attr,	NULL)
-	PHP_FE(radius_put_addr,	NULL)
-	PHP_FE(radius_put_vendor_string,	NULL)
-	PHP_FE(radius_put_vendor_int,	NULL)
-	PHP_FE(radius_put_vendor_attr,	NULL)
-	PHP_FE(radius_put_vendor_addr,	NULL)
-	PHP_FE(radius_send_request,	NULL)
-	PHP_FE(radius_get_attr,	NULL)
-	PHP_FE(radius_get_tagged_attr_data, NULL)
-	PHP_FE(radius_get_tagged_attr_tag, NULL)
-	PHP_FE(radius_get_vendor_attr,	NULL)
-	PHP_FE(radius_cvt_addr,	NULL)
-	PHP_FE(radius_cvt_int,	NULL)
-	PHP_FE(radius_cvt_string,	NULL)
-	PHP_FE(radius_salt_encrypt_attr,	NULL)
-	PHP_FE(radius_request_authenticator,	NULL)
-	PHP_FE(radius_server_secret,	NULL)
-	PHP_FE(radius_demangle,	NULL)    
-	PHP_FE(radius_demangle_mppe_key,	NULL)    
-	{NULL, NULL, NULL}	/* Must be the last line in radius_functions[] */
-};
-/* }}} */
-
 /* {{{ radius_module_entry
  */
 zend_module_entry radius_module_entry = {
@@ -112,7 +76,7 @@ zend_module_entry radius_module_entry = {
 	STANDARD_MODULE_HEADER,
 #endif
 	"radius",
-	radius_functions,
+	ext_functions,
 	PHP_MINIT(radius),
 	PHP_MSHUTDOWN(radius),
 	NULL,
